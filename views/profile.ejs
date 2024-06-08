@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Document</title>
+</head>
+
+<body class="bg-zinc-900">
+
+    <div class=" w-full bg-zinc-900 p-10 text-white">
+        <div class="w-10 h-10 mb-2 rounded overflow-hidden"> <a href="/profile/upload"><img
+                    class="w-full h-full object-cover" src="../images/upload/<%= user.profilepic %>" alt="asadasd"></a>
+        </div>
+        <div class="flex justify-between	">
+
+            <h1 class="text-2xl mb-2"><span class="font-extralight">Hello</span>
+                <%=user.name%> 👋
+            </h1>
+            <a href="/logout" class="px-3 py-1 text-red-500 rounded text-md">Logout</a>
+
+        </div>
+
+        <h2 class="text-zinc-400">Create a new post.</h2>
+        <form action="/post" method="post">
+            <textarea
+                class="bg-transparent border-[1px] border-zinc-700 rounded block my-3 w-60 resize-none outline-none p-2"
+                name="content" placeholder="Write what's in your mind" id=""></textarea>
+            <input type="submit" class="px-3 py-1 text-white rounded bg-green-500 text-sm block" value="Create post">
+
+        </form>
+        <h3 class="font-semibold mt-5 text-zinc-500">Posts</h3>
+        <% user.post.forEach((post)=>{ %>
+            <div class="border-[1px] border-zinc-700 rounded w-3/6 py-2 px-3 mt-5">
+                <h3 class="font-semibold  text-yellow-700">
+                    <%= user.name %>
+                </h3>
+                <p>
+                    <%= post.content %>
+                </p>
+                <small class="text-sm text-zinc-500">
+                    <%= post.likes.length %> Likes
+                </small>
+                <div class="flex gap-3">
+
+                    <a href="/like/<%=post._id%>" class="text-blue-500 w-12">
+                        <%= post.likes.indexOf(user.id)?"Like":"Unlike"%>
+                    </a>
+                    <a href="/edit/<%=post._id%>" class="text-zinc-500">Edit</a>
+                </div>
+            </div>
+            <% } ) %>
+
+    </div>
+
+</body>
+
+</html>
